@@ -2,26 +2,16 @@
   "swagger": "2.0",
   "info": {
     "title": "Contacts API",
-    "description": "CRUD API for managing contacts",
+    "description": "CRUD API for managing contacts, backed by MongoDB.",
     "version": "1.0.0"
   },
-  "host": "localhost:5000",
+  "host": "https://cse341-contacts-api-momc.onrender.com/",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/contacts/": {
       "get": {
         "tags": [
           "Contacts"
@@ -87,7 +77,7 @@
         }
       }
     },
-    "/contacts/{id}": {
+    "/{id}": {
       "get": {
         "tags": [
           "Contacts"
