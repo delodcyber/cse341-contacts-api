@@ -5,8 +5,8 @@ const doc = {
     title: "Contacts API",
     description: "CRUD API for managing contacts, backed by MongoDB."
   },
-  host: "https://cse341-contacts-api-momc.onrender.com/",
-  basePath: "/",
+  host: "cse341-contacts-api-momc.onrender.com",
+  basePath: "/contacts",
   schemes: ["https"],
   definitions: {
     Contact: {
