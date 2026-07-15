@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const mongoose = require("mongoose");
 const Contact = require("../DB/contacts");
 
 // GET all contacts
@@ -49,6 +49,13 @@ router.get("/:id", async (req, res) => {
   */
 
   try {
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({
+        message: "Invalid contact ID."
+      });
+    }
+
     const contact = await Contact.findById(req.params.id);
 
     if (!contact) {
@@ -62,7 +69,7 @@ router.get("/:id", async (req, res) => {
     console.error(error);
 
     res.status(500).json({
-      message: "Server error."
+      message: "Internal Server error."
     });
   }
 });
@@ -109,8 +116,14 @@ router.post("/", async (req, res) => {
     res.status(201).json({ id: newContact._id });
   } catch (error) {
     console.error(error);
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        message: error.message
+      });
+    }
+
     res.status(500).json({
-      message: "Server error."
+      message: error.message || "Internal Server error."
     });
   }
 });
@@ -141,6 +154,13 @@ router.put("/:id", async (req, res) => {
   */
 
   try {
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({
+        message: "Invalid contact ID."
+      });
+    }
+
     const { firstName, lastName, email, favoriteColor, birthday } = req.body;
 
     if (!firstName || !lastName || !email || !favoriteColor || !birthday) {
@@ -166,7 +186,7 @@ router.put("/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: "Server error."
+      message: "Internal Server error."
     });
   }
 });
@@ -189,6 +209,13 @@ router.delete("/:id", async (req, res) => {
   */
 
   try {
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({
+        message: "Invalid contact ID."
+      });
+    }``
+
     const deletedContact = await Contact.findByIdAndDelete(req.params.id);
 
     if (!deletedContact) {
@@ -201,7 +228,7 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: "Server error."
+      message: "Internal Server error."
     });
   }
 });

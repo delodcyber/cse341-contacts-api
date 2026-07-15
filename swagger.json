@@ -100,6 +100,9 @@
               "$ref": "#/definitions/Contact"
             }
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "404": {
             "description": "Contact not found."
           },
@@ -167,6 +170,9 @@
         "responses": {
           "204": {
             "description": "Contact deleted successfully."
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
             "description": "Contact not found."
